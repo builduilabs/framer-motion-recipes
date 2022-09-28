@@ -1,6 +1,8 @@
 # Framer Motion Recipes - Lesson 1
 
-- [Diff from video](https://github.com/builduilabs/framer-motion-recipes/commit/d4595ee8604d6e67aa47a6dd91e4225033ec67c6)
+- [View the diff from video](https://github.com/builduilabs/framer-motion-recipes/commit/d4595ee8604d6e67aa47a6dd91e4225033ec67c6)
+- [View the starting code](./__begin.js)
+- [View the ending code](./__end.js)
 
 ## Running the demo locally
 
