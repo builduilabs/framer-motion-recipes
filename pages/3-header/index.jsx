@@ -33,7 +33,7 @@ function useScrollWithClamp({ clamp, ...rest }) {
 export default function Header() {
   let container = useRef();
   let { scrollYProgressClamped } = useScrollWithClamp({
-    clamp: 500,
+    clamp: 200,
     container,
     offset: ["start", "end"],
   });
@@ -45,7 +45,7 @@ export default function Header() {
           <motion.header
             style={{
               height: useTransform(scrollYProgressClamped, [0, 1], [100, 60]),
-              background: useMotionTemplate`rgba(255 255 255 / ${useTransform(
+              backgroundColor: useMotionTemplate`rgba(255 255 255 / ${useTransform(
                 scrollYProgressClamped,
                 [0, 1],
                 [1, 0.1]
@@ -83,7 +83,7 @@ export default function Header() {
                   <p className="h-4 w-4/6 rounded bg-slate-200" />
                 </div>
               ))}
-              <div className="h-64 rounded bg-slate-500"></div>
+              <div className="h-64 rounded bg-slate-200"></div>
               {[...Array(90).keys()].map((i) => (
                 <div key={i} className="space-y-2 text-sm">
                   <p className="h-4 w-5/6 rounded bg-slate-200" />
