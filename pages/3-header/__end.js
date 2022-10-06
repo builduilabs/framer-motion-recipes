@@ -27,26 +27,26 @@ function useScrollWithBound(bound, rest) {
     });
   }, [bound, scrollYBounded, scrollY]);
 
-  return { scrollYProgressBounded };
+  return { scrollYBounded, scrollYProgressBounded };
 }
 
 export default function Header() {
   let container = useRef();
-  let { scrollYProgressBounded } = useScrollWithBound(200, {
+  let { scrollYBounded } = useScrollWithBound(600, {
     container,
     offset: ["start", "end"],
   });
 
   // Delay progress until 50% of the bound is scrolled
-  scrollYProgressBounded = useTransform(
-    scrollYProgressBounded,
-    [0.5, 1],
-    [0, 1]
+  let scrollYProgressBounded = useTransform(
+    scrollYBounded,
+    [0, 500, 600],
+    [0, 0, 1]
   );
 
   return (
     <div className="flex h-screen flex-col items-center justify-center overscroll-y-contain bg-gradient-to-br from-slate-700 to-slate-900 py-8 px-6 text-slate-600">
-      <div className="relative mx-auto flex w-full max-w-3xl flex-1 overflow-hidden bg-white ">
+      <div className="relative mx-auto flex w-full max-w-3xl flex-1 overflow-hidden rounded-2xl bg-white backdrop-blur-0">
         <div ref={container} className="z-0 flex-1 overflow-y-scroll border-l">
           <motion.header
             style={{
