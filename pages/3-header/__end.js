@@ -46,7 +46,7 @@ export default function Header() {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center overscroll-y-contain bg-gradient-to-br from-slate-700 to-slate-900 py-8 px-6 text-slate-600">
-      <div className="relative mx-auto flex w-full max-w-3xl flex-1 overflow-hidden rounded-2xl bg-white backdrop-blur-0">
+      <div className="relative mx-auto flex w-full max-w-3xl flex-1 overflow-hidden bg-white">
         <div ref={container} className="z-0 flex-1 overflow-y-scroll border-l">
           <motion.header
             style={{
@@ -68,7 +68,7 @@ export default function Header() {
               <span className="inline-block -rotate-90 text-[10px] leading-[0]">
                 The
               </span>{" "}
-              <span className="-ml-1 text-[24px] tracking-[-.075em]">
+              <span className="-ml-1 text-xl tracking-[-.075em]">
                 Daily Bugle
               </span>
             </motion.p>
@@ -84,7 +84,7 @@ export default function Header() {
             </motion.nav>
           </motion.header>
 
-          <main className="px-8 pt-[120px]">
+          <main className="px-8 pt-32">
             <h1 className="h-10 w-4/5 rounded bg-slate-200 text-2xl font-bold" />
             <div className="mt-8 space-y-6">
               {[...Array(2).keys()].map((i) => (
