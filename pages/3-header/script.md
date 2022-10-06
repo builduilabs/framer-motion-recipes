@@ -1,10 +1,12 @@
 ## Sticky header
 
-To start, make the header sticky with CSS. Add sticky top-0 bg-white to header.
+To start, make the header sticky with CSS. Add `shadow` to header. Add `absolute inset-x-0`, and give it a bg-white. Need to make parent relative.
 
-```jsx
-<header className="sticky top-0 flex items-center justify-between border-b p-8">
-```
+Sweet! Let's add 20 units of padding to the article. In business.
+
+# useScroll with container
+
+So to get the header shrinking with scroll we're going to use the useScroll() hook.
 
 # Add a delay
 

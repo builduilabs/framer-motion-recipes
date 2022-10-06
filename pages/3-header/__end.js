@@ -33,7 +33,6 @@ function useScrollWithBound(bound, rest) {
 export default function Header() {
   let container = useRef();
   let { scrollYBounded } = useScrollWithBound(600, {
-    container,
     offset: ["start", "end"],
   });
 
@@ -45,20 +44,20 @@ export default function Header() {
   );
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center overscroll-y-contain bg-gradient-to-br from-slate-700 to-slate-900 py-8 px-6 text-slate-600">
-      <div className="relative mx-auto flex w-full max-w-3xl flex-1 overflow-hidden bg-white">
-        <div ref={container} className="z-0 flex-1 overflow-y-scroll border-l">
-          <motion.header
-            style={{
-              height: useTransform(scrollYProgressBounded, [0, 1], [80, 50]),
-              backgroundColor: useMotionTemplate`rgba(255 255 255 / ${useTransform(
-                scrollYProgressBounded,
-                [0, 1],
-                [1, 0.1]
-              )})`,
-            }}
-            className="absolute inset-x-0 top-0 flex items-center justify-between px-8 shadow backdrop-blur-md"
-          >
+    <div className="mx-auto flex w-full max-w-3xl flex-1 overflow-hidden text-slate-600">
+      <div ref={container} className="z-0 flex-1 overflow-y-scroll">
+        <motion.header
+          style={{
+            height: useTransform(scrollYProgressBounded, [0, 1], [80, 50]),
+            backgroundColor: useMotionTemplate`rgba(255 255 255 / ${useTransform(
+              scrollYProgressBounded,
+              [0, 1],
+              [1, 0.1]
+            )})`,
+          }}
+          className="fixed inset-x-0 flex shadow-sm backdrop-blur-md"
+        >
+          <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-8">
             <motion.p
               style={{
                 scale: useTransform(scrollYProgressBounded, [0, 1], [1, 0.9]),
@@ -68,7 +67,7 @@ export default function Header() {
               <span className="inline-block -rotate-90 text-[10px] leading-[0]">
                 The
               </span>{" "}
-              <span className="-ml-1 text-xl tracking-[-.075em]">
+              <span className="-ml-1 text-2xl tracking-[-.075em]">
                 Daily Bugle
               </span>
             </motion.p>
@@ -82,29 +81,29 @@ export default function Header() {
               <a href="#">Sports</a>
               <a href="#">Culture</a>
             </motion.nav>
-          </motion.header>
+          </div>
+        </motion.header>
 
-          <main className="px-8 pt-32">
-            <h1 className="h-10 w-4/5 rounded bg-slate-200 text-2xl font-bold" />
-            <div className="mt-8 space-y-6">
-              {[...Array(2).keys()].map((i) => (
-                <div key={i} className="space-y-2 text-sm">
-                  <p className="h-4 w-5/6 rounded bg-slate-200" />
-                  <p className="h-4 rounded bg-slate-200" />
-                  <p className="h-4 w-4/6 rounded bg-slate-200" />
-                </div>
-              ))}
-              <div className="h-64 rounded bg-slate-200"></div>
-              {[...Array(90).keys()].map((i) => (
-                <div key={i} className="space-y-2 text-sm">
-                  <p className="h-4 w-5/6 rounded bg-slate-200" />
-                  <p className="h-4 rounded bg-slate-200" />
-                  <p className="h-4 w-4/6 rounded bg-slate-200" />
-                </div>
-              ))}
-            </div>
-          </main>
-        </div>
+        <main className="px-8 pt-32">
+          <h1 className="h-10 w-4/5 rounded bg-slate-200 text-2xl font-bold" />
+          <div className="mt-8 space-y-6">
+            {[...Array(2).keys()].map((i) => (
+              <div key={i} className="space-y-2 text-sm">
+                <p className="h-4 w-5/6 rounded bg-slate-200" />
+                <p className="h-4 rounded bg-slate-200" />
+                <p className="h-4 w-4/6 rounded bg-slate-200" />
+              </div>
+            ))}
+            <div className="h-64 rounded bg-slate-200"></div>
+            {[...Array(90).keys()].map((i) => (
+              <div key={i} className="space-y-2 text-sm">
+                <p className="h-4 w-5/6 rounded bg-slate-200" />
+                <p className="h-4 rounded bg-slate-200" />
+                <p className="h-4 w-4/6 rounded bg-slate-200" />
+              </div>
+            ))}
+          </div>
+        </main>
       </div>
     </div>
   );
