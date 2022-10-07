@@ -1,8 +1,6 @@
 import { motion, useMotionValue, useScroll } from "framer-motion";
 import { useEffect } from "react";
 
-let clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-
 export default function Header() {
   let { scrollY } = useScroll();
   let height = useMotionValue(80);
@@ -13,7 +11,7 @@ export default function Header() {
       let diff = current - previous;
       let newHeight = height.get() - diff;
 
-      height.set(clamp(newHeight, 50, 80));
+      height.set(Math.min(Math.max(newHeight, 50), 80));
     });
   }, [height, scrollY]);
 
@@ -28,7 +26,7 @@ export default function Header() {
             <p className="flex origin-left items-center text-xl font-semibold uppercase">
               <span className="-ml-1.5 inline-block -rotate-90 text-[10px] leading-[0]">
                 The
-              </span>{" "}
+              </span>
               <span className="-ml-1 text-2xl tracking-[-.075em]">
                 Daily Bugle
               </span>
