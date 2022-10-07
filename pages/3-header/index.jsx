@@ -1,11 +1,11 @@
-import { motion, useMotionValue, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValue, useScroll } from "framer-motion";
 import { useEffect } from "react";
 
-let clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+let clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
 export default function Header() {
   let { scrollY } = useScroll();
-  let height = useMotionValue(50);
+  let height = useMotionValue(80);
 
   useEffect(() => {
     return scrollY.onChange((current) => {
@@ -26,7 +26,7 @@ export default function Header() {
         >
           <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-8">
             <p className="flex origin-left items-center text-xl font-semibold uppercase">
-              <span className="inline-block -rotate-90 text-[10px] leading-[0]">
+              <span className="-ml-1.5 inline-block -rotate-90 text-[10px] leading-[0]">
                 The
               </span>{" "}
               <span className="-ml-1 text-2xl tracking-[-.075em]">
@@ -41,7 +41,7 @@ export default function Header() {
           </div>
         </motion.header>
 
-        <main className="px-8 pt-32">
+        <main className="px-8 pt-28">
           <h1 className="h-10 w-4/5 rounded bg-slate-200 text-2xl font-bold" />
           <div className="mt-8 space-y-6">
             {[...Array(2).keys()].map((i) => (

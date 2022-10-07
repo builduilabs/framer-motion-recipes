@@ -5,7 +5,7 @@ export default function Header() {
         <header className="flex h-20">
           <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-8">
             <p className="flex origin-left items-center text-xl font-semibold uppercase">
-              <span className="inline-block -rotate-90 text-[10px] leading-[0]">
+              <span className="-ml-1.5 inline-block -rotate-90 text-[10px] leading-[0]">
                 The
               </span>{" "}
               <span className="-ml-1 text-2xl tracking-[-.075em]">
