@@ -7,7 +7,7 @@ export default function Header() {
             <p className="flex origin-left items-center text-xl font-semibold uppercase">
               <span className="-ml-1.5 inline-block -rotate-90 text-[10px] leading-[0]">
                 The
-              </span>{" "}
+              </span>
               <span className="-ml-1 text-2xl tracking-[-.075em]">
                 Daily Bugle
               </span>
