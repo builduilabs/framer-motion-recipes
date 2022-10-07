@@ -20,7 +20,7 @@ export default function Header() {
           </div>
         </header>
 
-        <main className="px-8 pt-12">
+        <main className="px-8 pt-8">
           <h1 className="h-10 w-4/5 rounded bg-slate-200 text-2xl font-bold" />
           <div className="mt-8 space-y-6">
             {[...Array(2).keys()].map((i) => (
