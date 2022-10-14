@@ -1,4 +1,4 @@
-# Framer Motion Recipes - Lesson 2
+# Framer Motion Recipes, Lesson 2 – Email client
 
 - [View the diff from the video](https://github.com/builduilabs/framer-motion-recipes/commit/3680cff2c49b0bc212826f8d7a0896683b4cf3cd)
 - [View the starting code](./__begin.js)
