@@ -3,7 +3,7 @@ import Link from "next/link";
 let links = [
   { path: "/1-steps", label: "Lesson 1 - Multistep wizard" },
   { path: "/2-email", label: "Lesson 2 - Email client" },
-  { path: "/3-header", label: "Lesson 3 - Fixed header" },
+  { path: "/3-header-part-1", label: "Lesson 3 - Fixed header: Part 1" },
 ];
 
 export default function HomePage() {
