@@ -7,7 +7,7 @@ import {
 } from "framer-motion";
 import { useEffect } from "react";
 
-const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+let clamp = (number, min, max) => Math.min(Math.max(number, min), max);
 
 function useBoundedScroll(bounds) {
   let { scrollY } = useScroll();
@@ -32,10 +32,10 @@ function useBoundedScroll(bounds) {
 }
 
 export default function Header() {
-  let { scrollYBoundedProgress } = useBoundedScroll(500);
+  let { scrollYBoundedProgress } = useBoundedScroll(400);
   let scrollYBoundedProgressThrottled = useTransform(
     scrollYBoundedProgress,
-    [0, 0.5, 1],
+    [0, 0.75, 1],
     [0, 0, 1]
   );
 
