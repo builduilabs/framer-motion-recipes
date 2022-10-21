@@ -4,6 +4,7 @@ let links = [
   { path: "/1-steps", label: "Lesson 1 - Multistep wizard" },
   { path: "/2-email", label: "Lesson 2 - Email client" },
   { path: "/3-header-part-1", label: "Lesson 3 - Fixed header: Part 1" },
+  { path: "/4-header-part-2", label: "Lesson 4 - Fixed header: Part 2" },
 ];
 
 export default function HomePage() {
