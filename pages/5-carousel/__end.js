@@ -3,15 +3,6 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import { useState } from "react";
 import useKeypress from "react-use-keypress";
 
-let images = [
-  "/images/1.jpeg",
-  "/images/2.jpeg",
-  "/images/3.jpeg",
-  "/images/4.jpeg",
-  "/images/5.jpeg",
-  "/images/6.jpeg",
-];
-
 export default function Page() {
   let [index, setIndex] = useState(0);
 
@@ -86,11 +77,11 @@ export default function Page() {
             </AnimatePresence>
           </div>
 
-          <div className="overflow-hidden">
+          <div className="absolute inset-x-0 bottom-6 overflow-hidden">
             <motion.div
               initial={false}
               animate={{ x: `${-index * 50}%` }}
-              className="mx-auto mt-8 flex aspect-[3/2] h-16 gap-1"
+              className="mx-auto mt-8 flex aspect-[3/2] h-14 gap-1"
             >
               {images.map((image, i) => (
                 <motion.button
@@ -104,7 +95,7 @@ export default function Page() {
                     initial={false}
                     animate={{ opacity: i === index ? 1 : 0.5 }}
                     whileHover={{ opacity: 1 }}
-                    className="aspect-[3/2] h-full object-cover"
+                    className="h-full object-cover"
                     src={image}
                   />
                 </motion.button>
@@ -116,3 +107,12 @@ export default function Page() {
     </MotionConfig>
   );
 }
+
+let images = [
+  "/images/1.jpeg",
+  "/images/2.jpeg",
+  "/images/3.jpeg",
+  "/images/4.jpeg",
+  "/images/5.jpeg",
+  "/images/6.jpeg",
+];
