@@ -13,3 +13,9 @@
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;
 }
+
+html,
+body,
+#__next {
+  height: 100%;
+}
