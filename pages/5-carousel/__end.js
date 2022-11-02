@@ -85,29 +85,32 @@ export default function Page() {
               )}
             </AnimatePresence>
           </div>
-          <motion.div
-            initial={false}
-            animate={{ x: `${-index * 50}%` }}
-            className="mx-auto mt-8 flex aspect-[3/2] h-16 gap-1"
-          >
-            {images.map((image, i) => (
-              <motion.button
-                initial={false}
-                animate={{ width: i === index ? "100%" : "50%" }}
-                onClick={() => setIndex(i)}
-                key={image}
-                className="inline-block w-full shrink-0"
-              >
-                <motion.img
+
+          <div className="overflow-hidden">
+            <motion.div
+              initial={false}
+              animate={{ x: `${-index * 50}%` }}
+              className="mx-auto mt-8 flex aspect-[3/2] h-16 gap-1"
+            >
+              {images.map((image, i) => (
+                <motion.button
                   initial={false}
-                  animate={{ opacity: i === index ? 1 : 0.5 }}
-                  whileHover={{ opacity: 1 }}
-                  className="aspect-[3/2] h-full object-cover"
-                  src={image}
-                />
-              </motion.button>
-            ))}
-          </motion.div>
+                  animate={{ width: i === index ? "100%" : "50%" }}
+                  onClick={() => setIndex(i)}
+                  key={image}
+                  className="inline-block w-full shrink-0"
+                >
+                  <motion.img
+                    initial={false}
+                    animate={{ opacity: i === index ? 1 : 0.5 }}
+                    whileHover={{ opacity: 1 }}
+                    className="aspect-[3/2] h-full object-cover"
+                    src={image}
+                  />
+                </motion.button>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </MotionConfig>
