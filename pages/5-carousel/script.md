@@ -1,3 +1,24 @@
+# Step
+
+Customize the ease
+
+```jsx
+ease: [0.32, 0.72, 0, 1];
+```
+
+```
+<motion.div
+  animate={{ x: `-${index * 100}%` }}
+  transition={{
+    duration: 0.7,
+    ease: [0.32, 0.72, 0, 1],
+  }}
+  className="flex"
+>
+```
+
+---
+
 Pics:
 
 - 1: https://unsplash.com/photos/cF-e-TSa1lE
