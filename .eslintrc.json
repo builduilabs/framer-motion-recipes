@@ -1,6 +1,8 @@
 {
   "extends": ["next/core-web-vitals", "eslint:recommended", "prettier"],
   "rules": {
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "@next/next/no-img-element": "off",
+    "jsx-a11y/alt-text": "off"
   }
 }
