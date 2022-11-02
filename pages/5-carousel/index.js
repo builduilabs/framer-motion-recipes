@@ -23,9 +23,16 @@ export default function Page() {
           animate={{ x: `${index * -100}%` }}
           transition={{
             x: {
+              // type: "spring",
+              // bounce: 0.1,
+              // duration: 0.6,
+              // Original
               type: "spring",
               stiffness: 300,
               damping: 30,
+              // Test
+              // duration: 0.45,
+              // ease: "easeInOut",
             },
             opacity: { duration: 0.2 },
           }}
