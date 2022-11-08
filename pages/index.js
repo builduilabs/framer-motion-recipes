@@ -6,6 +6,7 @@ let links = [
   { path: "/3-header-part-1", label: "Lesson 3 - Fixed header: Part 1" },
   { path: "/4-header-part-2", label: "Lesson 4 - Fixed header: Part 2" },
   { path: "/5-carousel-part-1", label: "Lesson 5 - Carousel: Part 1" },
+  { path: "/6-carousel-part-2", label: "Lesson 6 - Carousel: Part 2" },
 ];
 
 export default function HomePage() {
