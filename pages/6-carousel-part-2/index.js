@@ -58,6 +58,24 @@ export default function Page() {
               )}
             </AnimatePresence>
           </div>
+
+          <div className="absolute inset-x-0 bottom-6 overflow-hidden">
+            <motion.div
+              animate={{ x: `-${index * 18.66}px` }}
+              className="mx-auto flex aspect-[3/2] h-14 gap-8"
+            >
+              {images.map((image, i) => (
+                <motion.img
+                  key={image}
+                  src={image}
+                  animate={{
+                    aspectRatio: i === index ? 3 / 2 : 1 / 3,
+                  }}
+                  className="object-cover"
+                />
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </MotionConfig>
