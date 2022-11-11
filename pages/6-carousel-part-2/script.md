@@ -123,62 +123,167 @@ index 0c2ca18..829eb65 100644
 
 # Step - Nav
 
-Copy + paste image map to bottom. Set `h-14`. Ok, want to center. Make the containing div aspect-3/2, h-14. Now can use mx-auto.
-
 ```jsx
-<div className="absolute inset-x-0 bottom-6 mx-auto flex aspect-[3/2] h-14">
-  {images.map((image) => (
-    <img key={image} src={image} className="aspect-[3/2] object-cover" />
-  ))}
+<div className="absolute inset-x-0 bottom-6 flex justify-center">
+  <div className="flex aspect-[3/2] h-14">
+    {images.map((image) => (
+      <img key={image} src={image} className="h-full object-cover" />
+    ))}
+  </div>
 </div>
 ```
 
 Works, but we have overflow. Add wrapper w/overflow-hidden.
 
-```jsx
-<div className="absolute inset-x-0 bottom-6 overflow-hidden">
-  <div className="mx-auto flex aspect-[3/2] h-14"></div>
-</div>
-```
+# Step - animate
 
 Sweet! Ready to animate. Same idea as before.
 
 ```jsx
 <motion.div
   animate={{ x: `-${index * 100}%` }}
-  className="mx-auto flex aspect-[3/2] h-14"
+  className="flex aspect-[3/2] h-14"
 >
 ```
 
+Tracks the carousel
+
+# Step - buttons
+
+Let's wrap these in buttons. Need shrink-0 so they don't shrink.
+
 ```jsx
-<div className="absolute inset-x-0 bottom-6 overflow-hidden">
-  <motion.div
-    initial={false}
-    animate={{ x: `${-index * 50}%` }}
-    className="mx-auto mt-8 flex aspect-[3/2] h-14 gap-1"
-  >
-    {images.map((image, i) => (
-      <motion.button
-        initial={false}
-        animate={{ width: i === index ? "100%" : "50%" }}
-        onClick={() => setIndex(i)}
-        key={image}
-        className="inline-block w-full shrink-0"
-      >
-        <motion.img
-          initial={false}
-          animate={{ opacity: i === index ? 1 : 0.5 }}
-          whileHover={{ opacity: 1 }}
-          className="h-full object-cover"
-          src={image}
-        />
-      </motion.button>
-    ))}
-  </motion.div>
-</div>
+{
+  images.map((image) => (
+    <button className="shrink-0" key={image}>
+      <img src={image} className="h-full object-cover" />
+    </button>
+  ));
+}
+```
+
+Make the click work:
+
+```jsx
+<button onClick={() => setIndex(i)} />
+```
+
+Boom! Declarative rendering.
+
+# Step - aspect ratio buttons
+
+If you remember from iOS, the nav has the middle picture at full aspect ratio, and the others shrink.
+
+```jsx
+<button
+  className={`${i === index ? "aspect-[3/2]" : "aspect-[1/3]"} shrink-0`}
+/>
+```
+
+We see this breaks our `x` calculation. Multiply by 1/3.
+
+```
+animate={{ x: `-${index * 100 * (1 / 3)}%` }}
+```
+
+Closer... we actually want to go from midpoint to midpoint.
+
+```
+animate={{ x: `-${index * 100 * (1 / 3 / (3 / 2))}%` }}
+```
+
+Boom. Perfectly centered.
+
+Since these are now related let's extract to a variable.
+
+```jsx
+let fullAspectRatio = 3 / 2;
+let collapsedAspectRatio = 1 / 3;
+```
+
+And replace everywhere. Boom!
+
+# Step - Animate aspect ratio
+
+Now for the fun part! Turn button into motion.button, and change style to animate:
+
+```jsx
+<motion.button
+  onClick={() => setIndex(i)}
+  key={image}
+  className="shrink-0"
+  animate={{
+    aspectRatio:
+      i === index ? fullAspectRatio : collapsedAspectRatio,
+  }}
+>
+```
+
+Love it. Change aspect ratios, still works. Click carousel, works beautifully.
+
+# Step - More details. Margins and gap.
+
+Create some separation.
+
+```
+marginLeft: i === index ? "10%" : 0,
+marginRight: i === index ? "10%" : 0,
+```
+
+Update our center calculation.
+
+```
+animate={{
+  x: `-${
+    index * 100 * (collapsedAspectRatio / fullAspectRatio) +
+    margin
+  }%`,
+}}
+```
+
+Let's refactor this to variants:
+
+```
+animate={i === index ? "active" : "inactive"}
+variants={{
+  active: {
+    aspectRatio: fullAspectRatio,
+    marginLeft: `${margin}%`,
+    marginRight: `${margin}%`,
+  },
+  inactive: {
+    aspectRatio: collapsedAspectRatio,
+    marginLeft: 0,
+    marginRight: 0,
+  },
+}}
+```
+
+Nice. Let's make active buttons 100% opacity and inactive ones 50%. And add whileHover = 1.
+
+Let's also add a gap between the inactive photos. Because we're using flex we can use the gap css property.
+
+We can see it affects the `x` calculation, so let's parameterize it.
+
+```
+x: `-${
+  index * 100 * (collapsedAspectRatio / fullAspectRatio) +
+  margin +
+  index * gap
+}%`,
+```
+
+Play with duration. So cool.
+
+Little detail:
+
+```jsx
+<motion.img animate={{ opacity: i === index ? 1 : 0.3 }} />
 ```
 
 # Step - keypress
+
+Finally - we've done all this work, let's take advantage of it!
 
 ```js
 useKeypress("ArrowRight", () => {
