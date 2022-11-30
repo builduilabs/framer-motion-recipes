@@ -21,7 +21,7 @@ export default function Measure() {
           <div>
             <div>
               <motion.div
-                animate={{ height: height ? height : "auto" }}
+                animate={{ height: height === 0 ? "auto" : height }}
                 transition={{
                   type: "spring",
                   duration: 0.8,
