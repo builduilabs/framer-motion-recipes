@@ -4,5 +4,6 @@
     "no-unused-vars": "off",
     "@next/next/no-img-element": "off",
     "jsx-a11y/alt-text": "off"
-  }
+  },
+  "env": { "es6": true }
 }
