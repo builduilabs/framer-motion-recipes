@@ -105,7 +105,7 @@ function Form({ onSubmit, afterSave, children, ...props }) {
     setStatus("saving");
     await onSubmit();
     setStatus("success");
-    await delay(1250);
+    await delay(1000);
     afterSave();
   }
 
