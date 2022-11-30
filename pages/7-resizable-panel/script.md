@@ -1,3 +1,12 @@
+# Half
+
+```
+transition={{
+   ...transition,
+   duration: transition.duration / 2,
+}}
+```
+
 # Diff
 
 ```diff
