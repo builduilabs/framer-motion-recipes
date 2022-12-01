@@ -15,31 +15,25 @@ export default function ResizablePanel() {
     <MotionConfig transition={transition}>
       <div className="flex min-h-screen flex-col items-start bg-zinc-900 pt-28">
         <div className="mx-auto w-full max-w-md">
-          <div className="relative w-full overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-800">
+          <div className="relative overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-800">
             <div className="px-8 pt-8">
               <p className="text-lg text-white">Reset password</p>
             </div>
 
             <motion.div
-              animate={{ height: bounds.height > 0 ? bounds.height : "auto" }}
-              transition={{
-                type: "spring",
-                bounce: 0.2,
-                duration: 0.8,
-              }}
+              animate={{ height: bounds.height > 0 ? bounds.height : null }}
+              transition={{ type: "spring", bounce: 0.2, duration: 0.8 }}
             >
               <div ref={ref}>
                 <AnimatePresence mode="popLayout">
                   {status === "idle" || status === "saving" ? (
                     <motion.div
-                      key="form"
-                      initial={false}
-                      animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{
                         ...transition,
                         duration: transition.duration / 2,
                       }}
+                      key="form"
                     >
                       <Form
                         onSubmit={async () => await delay(1000)}
@@ -53,8 +47,8 @@ export default function ResizablePanel() {
                           <input
                             className="block w-full rounded border-none text-slate-900"
                             type="email"
-                            defaultValue="sam@buildui.com"
                             required
+                            defaultValue="sam@buildui.com"
                           />
                         </div>
                         <div className="mt-8 text-right">
@@ -66,7 +60,6 @@ export default function ResizablePanel() {
                     </motion.div>
                   ) : (
                     <motion.div
-                      key="message"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{
@@ -76,7 +69,7 @@ export default function ResizablePanel() {
                       }}
                     >
                       <p className="p-8 text-sm text-zinc-400">
-                        Email sent! Check your inbox to continue
+                        Email sent! Check your inbox to continue.
                       </p>
                     </motion.div>
                   )}
@@ -84,7 +77,6 @@ export default function ResizablePanel() {
               </div>
             </motion.div>
           </div>
-
           <p className="mt-8 text-sm text-zinc-500">
             <span className="underline">Reach out</span> to us if you need more
             help.
@@ -105,7 +97,7 @@ function Form({ onSubmit, afterSave, children, ...props }) {
     setStatus("saving");
     await onSubmit();
     setStatus("success");
-    await delay(1000);
+    await delay(1250);
     afterSave();
   }
 

@@ -4,7 +4,7 @@ import { CheckIcon } from "@heroicons/react/solid";
 import { createContext } from "react";
 import { useContext } from "react";
 
-let transition = { type: "ease", ease: "easeInOut", duration: 0.3 };
+let transition = { type: "ease", ease: "easeInOut", duration: 1 };
 
 export default function ResizablePanel() {
   let [status, setStatus] = useState("idle");
