@@ -145,7 +145,7 @@ Form.Button = function FormButton({ children, className, ...rest }) {
               animate={{ opacity: 1 }}
               className="absolute inset-0 flex justify-center py-2"
             >
-              <CheckIcon />
+              <CheckIcon className="h-full" />
             </motion.div>
           )}
         </AnimatePresence>
