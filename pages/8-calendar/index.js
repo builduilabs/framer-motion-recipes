@@ -7,11 +7,15 @@ export default function Page() {
   let month = parse(monthString, "yyyy-MM", new Date());
 
   function nextMonth() {
-    setMonthString(format(addMonths(month, 1), "yyyy-MM"));
+    let next = addMonths(month, 1);
+
+    setMonthString(format(next, "yyyy-MM"));
   }
 
-  function prevMonth() {
-    setMonthString(format(subMonths(month, 1), "yyyy-MM"));
+  function previousMonth() {
+    let previous = subMonths(month, 1);
+
+    setMonthString(format(previous, "yyyy-MM"));
   }
 
   return (
@@ -22,7 +26,7 @@ export default function Page() {
             <header className="relative flex justify-between px-8">
               <button
                 className="z-10 rounded-full p-1.5 hover:bg-stone-100"
-                onClick={prevMonth}
+                onClick={previousMonth}
               >
                 <ChevronLeftIcon className="h-4 w-4" />
               </button>
