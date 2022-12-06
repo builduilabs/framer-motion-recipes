@@ -24,17 +24,15 @@ export default function Page() {
 
   function nextMonth() {
     if (!isAnimating) {
-      let nextDate = addMonths(parse(monthString, "yyyy-MM", new Date()), 1);
       setPreviousMonthString(monthString);
-      setMonthString(format(nextDate, "yyyy-MM"));
+      setMonthString(format(addMonths(month, 1), "yyyy-MM"));
     }
   }
 
   function prevMonth() {
     if (!isAnimating) {
-      let prevDate = subMonths(parse(monthString, "yyyy-MM", new Date()), 1);
       setPreviousMonthString(monthString);
-      setMonthString(format(prevDate, "yyyy-MM"));
+      setMonthString(format(subMonths(month, 1), "yyyy-MM"));
     }
   }
 
