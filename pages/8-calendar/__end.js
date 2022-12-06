@@ -16,7 +16,6 @@ import useMeasure from "react-use-measure";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 
 export default function Page() {
-  // Use the useState hook to manage the current date in state
   let [monthString, setMonthString] = useState(format(new Date(), "yyyy-MM"));
   let [previousMonthString, setPreviousMonthString] = useState(monthString);
   let [isAnimating, setIsAnimating] = useState(false);
@@ -24,15 +23,17 @@ export default function Page() {
 
   function nextMonth() {
     if (!isAnimating) {
+      let nextDate = addMonths(parse(monthString, "yyyy-MM", new Date()), 1);
       setPreviousMonthString(monthString);
-      setMonthString(format(addMonths(month, 1), "yyyy-MM"));
+      setMonthString(format(nextDate, "yyyy-MM"));
     }
   }
 
   function prevMonth() {
     if (!isAnimating) {
+      let prevDate = subMonths(parse(monthString, "yyyy-MM", new Date()), 1);
       setPreviousMonthString(monthString);
-      setMonthString(format(subMonths(month, 1), "yyyy-MM"));
+      setMonthString(format(prevDate, "yyyy-MM"));
     }
   }
 
@@ -44,26 +45,9 @@ export default function Page() {
   });
 
   return (
-    <MotionConfig
-      transition={{ type: "tween", ease: "easeInOut", duration: 0.2 }}
-    >
+    <MotionConfig transition={transition}>
       <div className="flex min-h-screen  items-start bg-stone-800 pt-16">
         <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-2xl bg-white">
-          <div className="absolute inset-x-0 z-10 flex justify-between px-8 pt-8 text-sm">
-            <button
-              className="flex items-center justify-center rounded-full p-1.5 hover:bg-stone-100"
-              onClick={prevMonth}
-            >
-              <ChevronLeftIcon className="h-4 w-4" />
-            </button>
-            <button
-              className="flex items-center justify-center rounded-full p-1.5 hover:bg-stone-100"
-              onClick={nextMonth}
-            >
-              <ChevronRightIcon className="h-4 w-4" />
-            </button>
-          </div>
-
           <ResizablePanel>
             <AnimatePresence
               mode="popLayout"
@@ -72,27 +56,42 @@ export default function Page() {
             >
               <motion.div
                 key={monthString}
+                onAnimationStart={() => setIsAnimating(true)}
+                onAnimationComplete={() => setIsAnimating(false)}
                 initial="enter"
                 animate="center"
                 exit="exit"
               >
                 <div className="py-8">
                   <div className="flex flex-col justify-center rounded text-center">
-                    <motion.p
-                      custom={{ direction }}
-                      variants={{
-                        enter: ({ direction }) => ({
-                          x: `${direction * 100}%`,
-                        }),
-                        center: { x: `0%` },
-                        exit: ({ direction }) => ({
-                          x: `${-direction * 100}%`,
-                        }),
-                      }}
-                      className="font-semibold"
-                    >
-                      {format(month, "MMMM yyyy")}
-                    </motion.p>
+                    <header className="relative flex justify-between px-8">
+                      <button
+                        className="relative z-10 flex items-center justify-center rounded-full p-1.5 hover:bg-stone-100"
+                        onClick={prevMonth}
+                      >
+                        <ChevronLeftIcon className="h-4 w-4" />
+                      </button>
+                      <motion.p
+                        custom={{ direction }}
+                        variants={variants}
+                        className="absolute inset-0 flex items-center justify-center font-semibold"
+                      >
+                        {format(month, "MMMM yyyy")}
+                      </motion.p>
+                      <button
+                        className="relative z-10 flex items-center justify-center rounded-full p-1.5 hover:bg-stone-100"
+                        onClick={nextMonth}
+                      >
+                        <ChevronRightIcon className="h-4 w-4" />
+                      </button>
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          backgroundImage:
+                            "linear-gradient(to right, white 10%, transparent, white 90%)",
+                        }}
+                      ></div>
+                    </header>
 
                     <div className="mt-6 grid grid-cols-7 gap-x-2 gap-y-6 px-8 text-sm">
                       <span className="font-medium text-stone-500">Su</span>
@@ -106,15 +105,7 @@ export default function Page() {
 
                     <motion.div
                       custom={{ direction }}
-                      variants={{
-                        enter: ({ direction }) => ({
-                          x: `${direction * 100}%`,
-                        }),
-                        center: { x: `0%` },
-                        exit: ({ direction }) => ({
-                          x: `${-direction * 100}%`,
-                        }),
-                      }}
+                      variants={variants}
                       className="mt-4 grid grid-cols-7 gap-x-2 gap-y-6 px-8 text-sm"
                     >
                       {days.map((day) => (
@@ -140,6 +131,32 @@ export default function Page() {
     </MotionConfig>
   );
 }
+let transition = { type: "tween", ease: "easeInOut", duration: 0.3 };
+// let transition = { type: "spring", bounce: 0, duration: 0.3 };
+let variants = {
+  enter: ({ direction }) => ({
+    opacity: 0,
+    x: `${direction * 100}%`,
+  }),
+  center: {
+    x: `0%`,
+    // opacity: [0, 1, 1],
+    opacity: 1,
+    transition: {
+      ...transition,
+      opacity: { ...transition, times: [0, 0.75, 1] },
+    },
+  },
+  exit: ({ direction }) => ({
+    opacity: 0,
+    // opacity: [1, 0, 0],
+    x: `${-direction * 100}%`,
+    transition: {
+      ...transition,
+      opacity: { ...transition, times: [0, 0.25, 1] },
+    },
+  }),
+};
 
 function ResizablePanel({ children }) {
   let [ref, bounds] = useMeasure();
