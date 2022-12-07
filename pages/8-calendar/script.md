@@ -1,5 +1,7 @@
 # Step
 
+Inspired by airbnb's calendar.
+
 First let's add the days.
 
 ```jsx
@@ -35,22 +37,7 @@ Render:
 
 Boom.
 
-Now, dec 1 falls on thursday so we really need to pad the left and right with the rest of the week. Use `startOfWeek` and `endOfWeek`.
-
-```jsx
-let days = eachDayOfInterval({
-  start: startOfWeek(startOfMonth(month)),
-  end: endOfWeek(endOfMonth(month)),
-});
-```
-
-Now style, `gap-y-4 text-sm font-semibold`. Now conditional:
-
-```
-className={isSameMonth(day, month) ? "" : "text-stone-300"}
-```
-
-And add days of week.
+Now let's get the days of week in here.
 
 ```jsx
 <span className="font-medium text-stone-500">Su</span>
@@ -60,6 +47,23 @@ And add days of week.
 <span className="font-medium text-stone-500">Th</span>
 <span className="font-medium text-stone-500">Fri</span>
 <span className="font-medium text-stone-500">Sa</span>
+```
+
+Add some `gap-y-6`, And make the days `font-semibold`, and make the whole grid `text-sm`.
+
+Now, dec 1 falls on thursday so we really need to pad the left and right with the rest of the week. Use `startOfWeek` and `endOfWeek`.
+
+```jsx
+let days = eachDayOfInterval({
+  start: startOfWeek(startOfMonth(month)),
+  end: endOfWeek(endOfMonth(month)),
+});
+```
+
+Dim out days not in current month.
+
+```
+className={isSameMonth(day, month) ? "" : "text-stone-300"}
 ```
 
 Lookin good!
@@ -298,12 +302,12 @@ We see it! One's undefined, let's pass it in down here as well. Now we see both!
 
 Ok, let's multiply the 100 by our direction:
 
-````
+```jsx
 enter: (direction) => {
   console.log({ direction });
   return { x: `${100 * direction}%` };
-}
-``
+};
+```
 
 Something happening! Let's comment out our exit animation for the moment. Looks good.
 
@@ -314,7 +318,7 @@ exit: (direction) => {
   console.log({ direction });
   return { x: `${-100 * direction}%` };
 }
-````
+```
 
 Ok! Lot going on. Let's slow down. First one is weird. But then it works. And if we change direction... again, first exit animation is wrong, but then its correct.
 
@@ -375,6 +379,21 @@ function previousMonth() {
 
 Not ideal but a good compromise that prevents a lot of potential bugs.
 
+# Step: gradient
+
+Slow down transition. Let's soften this text collision.
+
+```jsx
+<motion.div
+  className="absolute inset-0"
+  style={{
+    backgroundImage:
+      "linear-gradient(to right, white 15%, transparent 30%, transparent 70%, white 85%)",
+  }}
+  variants={removeImmediately}
+/>
+```
+
 # Step: Resizable panel
 
 Hopefully you noticed... opportunity to bring in resizable panel from previous lesson.
@@ -389,21 +408,6 @@ function ResizablePanel({ children }) {
     </motion.div>
   );
 }
-```
-
-# Step: gradient
-
-Slow down transition. Let's soften this text collision.
-
-```jsx
-<motion.div
-  className="absolute inset-0"
-  style={{
-    backgroundImage:
-      "linear-gradient(to right, white 15%, transparent 30%, transparent 70%, white 85%)",
-  }}
-  variants={removeImmediately}
-/>
 ```
 
 # Ref

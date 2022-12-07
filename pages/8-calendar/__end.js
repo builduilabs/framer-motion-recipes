@@ -137,7 +137,7 @@ export default function Page() {
   );
 }
 
-// let transition = { type: "tween", duration: 0.25 };
+// let transition = { type: "tween", ease: "easeOut", duration: 0.25 };
 let transition = { type: "spring", bounce: 0, duration: 0.3 };
 let variants = {
   enter: (direction) => {
