@@ -405,3 +405,44 @@ Slow down transition. Let's soften this text collision.
   variants={removeImmediately}
 />
 ```
+
+# Ref
+
+```jsx
+let transition = { type: "tween", ease: "easeInOut", duration: 0.3 };
+// let transition = { type: "spring", bounce: 0, duration: 0.3 };
+let variants = {
+  enter: ({ direction }) => ({
+    opacity: 0,
+    x: `${direction * 100}%`,
+  }),
+  center: {
+    x: `0%`,
+    // opacity: [0, 1, 1],
+    opacity: 1,
+    transition: {
+      ...transition,
+      opacity: { ...transition, times: [0, 0.75, 1] },
+    },
+  },
+  exit: ({ direction }) => ({
+    opacity: 0,
+    // opacity: [1, 0, 0],
+    x: `${-direction * 100}%`,
+    transition: {
+      ...transition,
+      opacity: { ...transition, times: [0, 0.25, 1] },
+    },
+  }),
+};
+
+function ResizablePanel({ children }) {
+  let [ref, bounds] = useMeasure();
+
+  return (
+    <motion.div animate={{ height: bounds.height > 0 ? bounds.height : null }}>
+      <div ref={ref}>{children}</div>
+    </motion.div>
+  );
+}
+```
