@@ -5,28 +5,38 @@ import { createContext } from "react";
 import { useContext } from "react";
 import useMeasure from "react-use-measure";
 
+export default function Page() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-zinc-100">
+      <div className="flex h-[400px] w-full max-w-md flex-col">
+        <ResizablePanelComponent />
+      </div>
+    </div>
+  );
+}
+
 let transition = { type: "ease", ease: "easeInOut", duration: 0.4 };
 
-export default function ResizablePanelComponent() {
+function ResizablePanelComponent() {
   let [status, setStatus] = useState("idle");
   let [ref, bounds] = useMeasure();
 
-  useEffect(() => {
-    let x = setInterval(() => {
-      setStatus((status) => {
-        return status === "idle" ? "success" : "idle";
-      });
-    }, 2000);
+  // useEffect(() => {
+  //   let x = setInterval(() => {
+  //     setStatus((status) => {
+  //       return status === "idle" ? "success" : "idle";
+  //     });
+  //   }, 2000);
 
-    return () => clearInterval(x);
-  }, []);
+  //   return () => clearInterval(x);
+  // }, []);
 
   return (
     <MotionConfig transition={transition}>
       <div className="mx-auto w-full max-w-md">
-        <div className="relative overflow-hidden rounded-lg bg-white text-neutral-900 shadow">
+        <div className="relative overflow-hidden rounded bg-white text-zinc-900 shadow">
           <div className="px-8 pt-8">
-            <p className="text-lg">Reset password</p>
+            <p className="text-lg font-medium">Reset password</p>
           </div>
 
           <motion.div
@@ -49,19 +59,19 @@ export default function ResizablePanelComponent() {
                       afterSave={() => setStatus("success")}
                       className="p-8"
                     >
-                      <p className="text-sm text-neutral-400">
+                      <p className="text-sm text-zinc-500">
                         Enter your email to reset your password:
                       </p>
-                      <div className="mt-3">
+                      <div className="mt-2">
                         <input
-                          className="block w-full rounded border-neutral-200 text-neutral-800 shadow-sm"
+                          className="block w-full rounded border border-zinc-300 text-zinc-800 shadow-sm"
                           type="email"
                           required
                           defaultValue="sam@buildui.com"
                         />
                       </div>
                       <div className="mt-8 text-right">
-                        <Form.Button className="rounded-full bg-blue-500 px-5 py-2 text-sm font-medium text-white ">
+                        <Form.Button className="rounded bg-blue-600 px-5 py-2 text-sm font-medium text-white">
                           Email me my link
                         </Form.Button>
                       </div>
@@ -77,7 +87,7 @@ export default function ResizablePanelComponent() {
                       delay: transition.duration / 2,
                     }}
                   >
-                    <p className="p-8 text-sm text-neutral-400">
+                    <p className="p-8 text-sm text-zinc-500">
                       Email sent! Check your inbox to continue.
                     </p>
                   </motion.div>
@@ -87,7 +97,7 @@ export default function ResizablePanelComponent() {
           </motion.div>
         </div>
 
-        <p className="mt-4 text-sm text-black/30">
+        <p className="mt-4 text-sm text-zinc-400">
           <span className="underline">Reach out</span> to us if you need more
           help.
         </p>

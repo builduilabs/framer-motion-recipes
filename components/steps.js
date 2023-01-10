@@ -15,7 +15,7 @@ export default function StepsComponent() {
   }, [step]);
 
   return (
-    <div className="mx-auto max-h-full w-full max-w-md rounded-2xl bg-white">
+    <div className="mx-auto max-h-full w-full max-w-md rounded-lg bg-white shadow">
       <div className="flex justify-between rounded p-8">
         <Step step={1} currentStep={step} />
         <Step step={2} currentStep={step} />
@@ -25,16 +25,16 @@ export default function StepsComponent() {
       <div className="px-8 pb-8">
         <div>
           <div className="mt-0 space-y-2">
-            <div className="h-4 w-5/6 rounded bg-slate-100" />
-            <div className="h-4 rounded bg-slate-100" />
-            <div className="h-4 w-4/6 rounded bg-slate-100" />
+            <div className="h-4 w-5/6 rounded bg-neutral-100" />
+            <div className="h-4 rounded bg-neutral-100" />
+            <div className="h-4 w-4/6 rounded bg-neutral-100" />
           </div>
         </div>
 
         <div className="mt-10 flex justify-between">
           <button
             onClick={() => setStep(step < 2 ? step : step - 1)}
-            className="rounded px-2 py-1 text-slate-400 hover:text-slate-700"
+            className="rounded px-2 py-1 text-neutral-400 hover:text-neutral-700"
           >
             Back
           </button>
@@ -89,8 +89,8 @@ function Step({ step, currentStep }) {
         variants={{
           inactive: {
             backgroundColor: "var(--white)",
-            borderColor: "var(--slate-200)",
-            color: "var(--slate-400)",
+            borderColor: "var(--neutral-200)",
+            color: "var(--neutral-400)",
           },
           active: {
             backgroundColor: "var(--white)",

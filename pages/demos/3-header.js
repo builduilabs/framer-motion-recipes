@@ -5,7 +5,18 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+
 import { useEffect, useRef } from "react";
+
+export default function Page() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-zinc-700">
+      <div className="flex h-[400px] w-full max-w-md flex-col">
+        <HeaderComponent />
+      </div>
+    </div>
+  );
+}
 
 let clamp = (number, min, max) => Math.min(Math.max(number, min), max);
 
@@ -33,40 +44,41 @@ function useBoundedScroll(bounds, scrollOptions) {
   return { scrollYBounded, scrollYBoundedProgress };
 }
 
-export default function HeaderComponent() {
+function HeaderComponent() {
   let containerEl = useRef(null);
   let targetRef = useRef(null);
-  let { scrollYBoundedProgress } = useBoundedScroll(400, {
+  let { scrollYBoundedProgress } = useBoundedScroll(200, {
     target: targetRef,
     container: containerEl,
   });
-  let scrollYBoundedProgressThrottled = useTransform(
-    scrollYBoundedProgress,
-    [0, 0.75, 1],
-    [0, 0, 1]
-  );
+  let scrollYBoundedProgressThrottled = scrollYBoundedProgress;
+  // let scrollYBoundedProgressThrottled = useTransform(
+  //   scrollYBoundedProgress,
+  //   [0, 1],
+  //   [0, 1]
+  // );
 
-  useEffect(() => {
-    containerEl.current.scrollTop = 2232;
-    let x, y;
+  // useEffect(() => {
+  //   containerEl.current.scrollTop = 2232;
+  //   let x, y;
 
-    x = setTimeout(() => {
-      y = setInterval(() => {
-        let currentScroll = containerEl.current.scrollTop;
-        let newScroll = currentScroll === 2232 ? 2132 : 2232;
+  //   x = setTimeout(() => {
+  //     y = setInterval(() => {
+  //       let currentScroll = containerEl.current.scrollTop;
+  //       let newScroll = currentScroll === 2232 ? 2132 : 2232;
 
-        containerEl.current.scroll({ top: newScroll, behavior: "smooth" });
-      }, 2000);
-    }, 0);
+  //       containerEl.current.scroll({ top: newScroll, behavior: "smooth" });
+  //     }, 2000);
+  //   }, 0);
 
-    return () => {
-      clearTimeout(x);
-      clearInterval(y);
-    };
-  }, []);
+  //   return () => {
+  //     clearTimeout(x);
+  //     clearInterval(y);
+  //   };
+  // }, []);
 
   return (
-    <div className="mx-auto flex max-h-full w-full max-w-3xl flex-1 overflow-hidden rounded-lg text-slate-600 shadow backdrop-blur-0">
+    <div className="mx-auto flex max-h-full w-full max-w-3xl flex-1 overflow-hidden rounded bg-white text-zinc-600 backdrop-blur-0">
       <div className="z-0 flex-1 overflow-y-scroll" ref={containerEl}>
         <motion.header
           style={{
@@ -81,9 +93,9 @@ export default function HeaderComponent() {
               [1, 0.1]
             )})`,
           }}
-          className="sticky inset-x-0 top-0 flex h-20 shadow backdrop-blur-md"
+          className="sticky inset-x-0 top-0 flex h-20 shadow-sm backdrop-blur-md"
         >
-          <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-4">
+          <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-8">
             <motion.p
               style={{
                 scale: useTransform(
@@ -109,7 +121,7 @@ export default function HeaderComponent() {
                   [1, 0]
                 ),
               }}
-              className="flex space-x-4 text-xs font-medium text-slate-400"
+              className="flex space-x-4 text-xs font-semibold text-zinc-500"
             >
               <a href="#">News</a>
               <a href="#">Sports</a>
@@ -119,21 +131,21 @@ export default function HeaderComponent() {
         </motion.header>
 
         <main className="bg-white px-8 pt-12" ref={targetRef}>
-          <h1 className="h-10 w-4/5 rounded bg-slate-200 text-2xl font-bold" />
+          <h1 className="h-10 w-4/5 rounded bg-zinc-200 text-2xl font-bold" />
           <div className="mt-8 space-y-6">
             {[...Array(2).keys()].map((i) => (
               <div key={i} className="space-y-2 text-sm">
-                <p className="h-4 w-5/6 rounded bg-slate-200" />
-                <p className="h-4 rounded bg-slate-200" />
-                <p className="h-4 w-4/6 rounded bg-slate-200" />
+                <p className="h-4 w-5/6 rounded bg-zinc-200" />
+                <p className="h-4 rounded bg-zinc-200" />
+                <p className="h-4 w-4/6 rounded bg-zinc-200" />
               </div>
             ))}
-            <div className="h-64 rounded bg-slate-200"></div>
+            <div className="h-64 rounded bg-zinc-200"></div>
             {[...Array(90).keys()].map((i) => (
               <div key={i} className="space-y-2 text-sm">
-                <p className="h-4 w-5/6 rounded bg-slate-200" />
-                <p className="h-4 rounded bg-slate-200" />
-                <p className="h-4 w-4/6 rounded bg-slate-200" />
+                <p className="h-4 w-5/6 rounded bg-zinc-200" />
+                <p className="h-4 rounded bg-zinc-200" />
+                <p className="h-4 w-4/6 rounded bg-zinc-200" />
               </div>
             ))}
           </div>
